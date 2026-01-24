@@ -1,0 +1,30 @@
+{
+  "name": "aws-puppeteer-app",
+  "version": "1.0.0",
+  "description": "Boilerplate Node.js app using Express, Puppeteer, AWS SDK, PDF-Lib, and dotenv.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "keywords": [
+    "express",
+    "puppeteer",
+    "aws",
+    "pdf"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "aws-sdk": "^2.1692.0",
+    "body-parser": "^1.20.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "pdf-lib": "^1.17.1",
+    "puppeteer": "^23.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
+

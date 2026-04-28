@@ -16,9 +16,9 @@ const generatePdf = async (req, res) => {
         const {
             app, url, device, userId, programTermId,
             termName, organizationName, programMasterName,
-            programName, name, id, courseType, pdfType,
+            programName, name, id, courseType, pdfType, folderPath
         } = parsedData;
-        
+
 
         browser = await puppeteer.launch({
             executablePath: "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
@@ -65,11 +65,19 @@ const generatePdf = async (req, res) => {
             region: process.env.REGION,
         });
         const folderName =
-            pdfType === "cohortBased"
-                ? `${organizationName}/${programMasterName}/${programName}/overAll`
-                : `${organizationName}/${programMasterName}/${programName}/${termName}/${courseType}`;
+            pdfType === 'TermDomainWise' ?
+                `${organizationName}/${programMasterName}/${programName}/${termName}/domainWise` :
+                pdfType === 'termBased' ?
+                    `${organizationName}/${programMasterName}/${programName}/${termName}/${courseType}` :
+                    pdfType === 'DomainWise' ?
+                        `${organizationName}/${programMasterName}/${programName}/domainWise` :
+                        pdfType === "cohortBased"
+                            ? `${organizationName}/${programMasterName}/${programName}/overAll`
+                            : `${organizationName}/${programMasterName}/${programName}/${termName}/${courseType}`;
 
-        const fileName = `${name}_${id}_${userId}_${programTermId}.pdf`;
+        // const fileName = `${name}_${id}_${userId}_${programTermId}.pdf`;
+        const fileName = `${name}_${id}_${userId}.pdf`;
+
 
         await awsStorage.uploadFileToS3({
             file: mergedPdfBytes,
